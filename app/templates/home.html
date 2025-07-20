@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Home - Minoxidil Store Liberia{% endblock %}
+{% block content %}
+<div class="jumbotron text-center text-white py-5 mb-4" style="background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);">
+    <h1 class="display-4">Welcome to Minoxidil Liberia!</h1>
+    <p class="lead">Your trusted source for Minoxidil products in Liberia.</p>
+    <a href="/products" class="btn btn-light btn-lg mt-3">Shop Now</a>
+</div>
+<h2 class="mb-4">Featured Products</h2>
+<div class="row">
+    {% for product in featured_products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename=product.image_url if product.image_url else 'placeholder.png') }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">${{ product.price }}</p>
+                <p class="card-text">{{ product.description }}</p>
+                <a href="/product/{{ product.id }}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 

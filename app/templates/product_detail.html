@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} - Minoxidil Store Liberia{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{ url_for('static', filename=product.image_url if product.image_url else 'placeholder.png') }}" class="img-fluid" alt="{{ product.name }}">
+        <p class="text-muted small">Image URL: {{ product.image_url }}</p>
+    </div>
+    <div class="col-md-6">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <h4>${{ product.price }}</h4>
+        <a href="https://wa.me/905338679344?text=I'm%20interested%20in%20{{ product.name }}%20(ID:%20{{ product.id }})" target="_blank" class="btn btn-success mb-2">Contact to Buy (WhatsApp)</a>
+        <a href="/contact?product_id={{ product.id }}" class="btn btn-outline-primary mb-2">Contact Form</a>
+    </div>
+</div>
+{% endblock %} 

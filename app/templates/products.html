@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Products - Minoxidil Store Liberia{% endblock %}
+{% block content %}
+<h2>Product Catalog</h2>
+<form class="row g-3 mb-4" method="get">
+    <div class="col-md-6">
+        <input type="text" class="form-control" name="search" placeholder="Search products..." value="{{ request.args.get('search', '') }}">
+    </div>
+    <div class="col-md-4">
+        <select class="form-select" name="category">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}" {% if request.args.get('category') == category.id|string %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename=product.image_url if product.image_url else 'placeholder.png') }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">${{ product.price }}</p>
+                <p class="card-text">{{ product.description }}</p>
+                <small class="text-muted">image_url: {{ product.image_url }}</small><br>
+                <small class="text-muted">static URL: {{ url_for('static', filename=product.image_url if product.image_url else 'placeholder.png') }}</small>
+                <a href="/product/{{ product.id }}" class="btn btn-primary mt-2">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 
